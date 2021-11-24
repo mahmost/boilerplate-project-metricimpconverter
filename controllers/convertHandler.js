@@ -36,6 +36,8 @@ function ConvertHandler() {
     let result;
     result = input.match(/[a-zA-Z]*$/);
     if (result && result.length) result = result[0];
+    result = (result || '').toLowerCase();
+    if (result === 'l') result = result.toUpperCase();
     if (!result || allowedUnits.indexOf(result) === -1) return 'invalid unit';
     return result;
   };

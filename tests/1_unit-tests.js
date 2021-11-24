@@ -37,12 +37,23 @@ suite('Unit Tests', function () {
   });
 
   test('convertHandler should correctly read each valid input unit', function () {
-    assert.equal(convertHandler.getUnit('1kg'), 'kg');
-    assert.equal(convertHandler.getUnit('99lbs'), 'lbs');
-    assert.equal(convertHandler.getUnit('5.99L'), 'L');
-    assert.equal(convertHandler.getUnit('99.5gal'), 'gal');
-    assert.equal(convertHandler.getUnit('5/7km'), 'km');
-    assert.equal(convertHandler.getUnit('5.5/9mi'), 'mi');
+    assert.equal(convertHandler.getUnit('1kg'), 'kg', 'lowercase kilograms');
+    assert.equal(convertHandler.getUnit('1KG'), 'kg', 'uppercase kilograms');
+
+    assert.equal(convertHandler.getUnit('99lbs'), 'lbs', 'lowercase pounds');
+    assert.equal(convertHandler.getUnit('99LBS'), 'lbs', 'uppercase pounds');
+
+    assert.equal(convertHandler.getUnit('5.99L'), 'L', 'uppercase liters');
+    assert.equal(convertHandler.getUnit('5.99l'), 'L', 'lowercase litres');
+
+    assert.equal(convertHandler.getUnit('99.5gal'), 'gal', 'lowercase gallons');
+    assert.equal(convertHandler.getUnit('99.5GAL'), 'gal', 'uppercase gallons');
+
+    assert.equal(convertHandler.getUnit('5/7km'), 'km', 'lowercase kilometers');
+    assert.equal(convertHandler.getUnit('5/7KM'), 'km', 'uppercase kilometers');
+
+    assert.equal(convertHandler.getUnit('5.5/9mi'), 'mi', 'lowercase miles');
+    assert.equal(convertHandler.getUnit('5.5/9MI'), 'mi', 'uppercase miles');
   });
 
   test('convertHandler should correctly return an error for an invalid input unit', function () {
