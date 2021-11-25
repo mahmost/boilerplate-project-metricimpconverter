@@ -22,4 +22,51 @@ suite('Functional Tests', function() {
         done();
       });
   });
+
+  test('Convert an invalid input such as 32g', function (done) {
+    chai
+      .request(server)
+      .get('/api/convert?input=32g')
+      .end(function(err, res) {
+        assert.equal(res.body, 'invalid unit');
+        done();
+      });
+  });
+
+  test('Convert an invalid number such as 3/7.2/4kg', function (done) {
+    chai
+      .request(server)
+      .get('/api/convert?input=3/7.2/4kg')
+      .end(function(err, res) {
+        assert.equal(res.body, 'invalid number');
+        done();
+      });
+  });
+
+  test('Convert an invalid number AND unit such as 3/7.2/4kilomegagram', function (done) {
+    chai
+      .request(server)
+      .get('/api/convert?input=3/7.2/4kilomegagram')
+      .end(function(err, res) {
+        assert.equal(res.body, 'invalid number and unit');
+        done();
+      });
+  });
+
+  test('Convert with no number such as kg', function (done) {
+    chai
+      .request(server)
+      .get('/api/convert?input=kg')
+      .end(function(err, res) {
+        assert.equal(res.status, 200);
+        assert.deepEqual(res.body, {
+          initNum: 1,
+          initUnit: 'kg',
+          returnNum: 2.20462,
+          returnUnit: 'lbs',
+          string: '1 kilograms converts to 2.20462 pounds',
+        });
+        done();
+      });
+  });
 });
